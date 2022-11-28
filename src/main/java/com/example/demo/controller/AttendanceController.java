@@ -12,52 +12,54 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.demo.model.Attendance;
 import com.example.demo.repository.AttendanceRepository;
+import com.example.demo.repository.DepartmentRepository;
 
 @Controller
 public class AttendanceController {
 	
 	private final AttendanceRepository repository;
+	private final DepartmentRepository departmentRepository;
 	
 	@Autowired //←コンストラクタが１つの場合は、＠Autowiredは省略可
-	public AttendanceController(AttendanceRepository repository) {
+	public AttendanceController(AttendanceRepository repository, DepartmentRepository departmentRepository) {
 		this.repository = repository;
+		this.departmentRepository = departmentRepository;
 		
 	}
+	
+
 	
 
 	@GetMapping("/")
 	public String showAttendance(@ModelAttribute Attendance attendance,
 			Model model) {
 		model.addAttribute("attendances", repository.findAll());
+		model.addAttribute("departments", departmentRepository.findAll());
 		model.addAttribute("title", "登録フォーム");
 		model.addAttribute("indexList", "勤怠一覧");
 		return "index";
 	}
 	
 	@PostMapping("/")
-	public String addAttendance(@ModelAttribute Attendance attendance,
+	public String addAttendance(@Validated @ModelAttribute Attendance attendance,
 			Model model,
 			BindingResult result) {
 		model.addAttribute("title", "登録フォーム");
 		model.addAttribute("attendances", repository.findAll());
+		model.addAttribute("departments", departmentRepository.findAll());
 		if(result.hasErrors()) {
 			return "index";
 		}
 		repository.save(attendance);
-		return "index";
+		return "redirect:/";
 	}
 	
-	@GetMapping("/add")
-	public String addAttendance(@ModelAttribute Attendance attendance) {
-		return "form";
-	}
-	
-	@PostMapping("/process")
-	public String addAttendance(@Validated @ModelAttribute Attendance attendance,
+	@PostMapping("/edit")
+	public String editAttendance(@Validated @ModelAttribute Attendance attendance,
 			BindingResult result, Model model) {
 		model.addAttribute("attendances", repository.findAll());
 		if(result.hasErrors()) {
-			return "form";
+			return "edit";
 		}
 		repository.save(attendance);
 		
@@ -69,7 +71,7 @@ public class AttendanceController {
 	@GetMapping("/edit/{id}")
 	public String editAttendance(@PathVariable Long id, Model model) {
 		model.addAttribute("attendance", repository.findById(id));
-		return "form";
+		return "/attendance/edit";
 	}
 	
 	@GetMapping("/delete/{id}")

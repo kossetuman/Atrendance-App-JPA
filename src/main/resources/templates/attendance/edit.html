@@ -23,17 +23,15 @@
 								</h6>
 							</div>
 							<div class="card-body">
-								<form th:action="@{/process}" th:object="${attendance}" method="post">
+								<form th:action="@{/edit}" th:object="${attendance}" method="post">
 									<input type="hidden" th:field="*{id}" />
 									<div class="mb-3">
-										<label for="department">部署名</label>
-										<select class="form-select" th:field="*{department}">
-										<th:block th:each="department : ${@departmentRepository.findAll()}">
-										<option th:value="${department.id}"
-										th:text="${department.name}">
-										</option>
-										</th:block>
-										</select>
+										<label for="workStart">出勤時間</label>
+										<input type="time" th:field=*{workStart}/>									
+									</div>
+									<div class="mb-3">
+										<label for="workFinish">退勤時間</label>
+										<input type="time" th:field=*{workFinish}/>									
 									</div>
 									<hr>
 									<button class="btn btn-navy col-4">
