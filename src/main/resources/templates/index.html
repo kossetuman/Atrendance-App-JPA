@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorate="~{layout/layout}">
+<head>
+<meta charset="UTF-8" th:remove="tag">
+</head>
+<body>
+	<!-- コンテンツの表示 -->
+	<div layout:fragment="content">
+		<main class="offcanvas-outside bg-light">
+			<div class="container-fluid">
+				<!-- トグルボタン -->
+				<div th:replace="~{fragments/sidebar :: toggler}">
+					
+				</div>
+				
+				<h1 th:text=${title}></h1>
+				<div class="row">
+					<div class="col">
+					
+					<form th:action="@{/}" th:object="${attendance}" method="post">
+				
+						<label for="workStart">出勤時間:</label> 
+						<input id="workStart" name="workStart" type="time" th:value="*{workStart}"><br>
+						<div th:if="${#fields.hasErrors('workStart')}" th:errors="*{workStart}"></div>
+				
+						<label for="workFinish">退勤時間:</label> 
+						<input id="workFinish" name="workFinish" type="time" th:value="*{workFinish}"><br>
+						<div th:if="${#fields.hasErrors('workFinish')}" th:errors="*{workFinish}"></div>
+				
+						<input type="submit" value="登録" class="mb-3"/>
+					</form>	
+				</div>		
+					
+				<div class="row">	
+					
+						<div class="card shadow">
+							<div class="card header">
+								<h6 class="text-navy my-2">
+									勤怠一覧
+								</h6>
+							</div>
+							<div class="card-body">
+								<div th:if="${attendances.size() == 0}">
+									該当データがありません
+								</div>
+								
+								<table th:if="${attendances.size() > 0}"
+								class="table table-bordered">
+									<thead>
+										<tr>
+											<th>#</th>
+											<th>部署名</th>
+											<th>出勤時間</th>
+											<th>退勤時間</th>
+											<th></th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:each="attendance : ${attendances}">
+											<td>[[${attendance.id}]]</td>
+											<td></td>
+											<td>[[${attendance.workStart}]]</td>
+											<td>[[${attendance.workFinish}]]</td>
+											<td>
+											<a th:href="@{/edit/{id}(id=*{attendance.id})}" class="btn btn-primary">
+											<i class="bi bi-pencil-square"></i>
+											編集
+											</a>
+											
+											<a th:href="@{/delete/{id}(id=*{attendance.id})}" class="btn btn-danger">
+											<i class="bi bi-trash-fill"></i>
+											削除
+											</a>
+											
+										    </td>
+										</tr>
+										
+									</tbody>
+								</table>
+							</div>
+						</div>
+					    
+					</div>
+				</div>
+			</div>
+		</main>
+	</div>
+</body>
+</html>
