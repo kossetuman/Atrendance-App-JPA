@@ -65,7 +65,7 @@ public class AttendanceController {
 		
 		//ルートパス（"/"）にリダイレクト
 		return "redirect:/";
-	
+
 	}
 	
 	@GetMapping("/edit/{id}")
