@@ -26,12 +26,12 @@ public class DepartmentController {
 	}
 
 	
-	@PostMapping("/add")
+	@GetMapping("/add")
 	public String showDepartment(@ModelAttribute Department department) {
 		return "/department/form";
 	}
 	
-	@GetMapping("/add")
+	@PostMapping("/add")
 	public String addDepartment(@ModelAttribute Department department, 
 		Model model,
 		BindingResult result) {

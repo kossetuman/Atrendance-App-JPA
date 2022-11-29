@@ -23,14 +23,10 @@ public class DataLoader implements ApplicationRunner {
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
 		var eigyou = new Department();
-//		attendance.setWorkStart("09:00");
-//		attendance.setWorkFinish("18:00");
 		eigyou.setName("営業部");
 		repository.save(eigyou);
 		
 		var kyouiku = new Department();
-//		attendance.setWorkStart("09:00");
-//		attendance.setWorkFinish("18:00");
 		kyouiku.setName("教育部");
 		repository.save(kyouiku);
 		

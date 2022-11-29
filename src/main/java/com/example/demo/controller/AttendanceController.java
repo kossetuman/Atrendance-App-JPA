@@ -29,17 +29,17 @@ public class AttendanceController {
 	
 
 	
-
+	//勤怠一覧表示
 	@GetMapping("/")
 	public String showAttendance(@ModelAttribute Attendance attendance,
 			Model model) {
-		model.addAttribute("attendances", repository.findAll());
-		model.addAttribute("departments", departmentRepository.findAll());
 		model.addAttribute("title", "登録フォーム");
-		model.addAttribute("indexList", "勤怠一覧");
+		model.addAttribute("attendances", repository.findAll());
+		model.addAttribute("departments", departmentRepository.findAll());		
 		return "index";
 	}
 	
+	//勤怠登録
 	@PostMapping("/")
 	public String addAttendance(@Validated @ModelAttribute Attendance attendance,
 			Model model,
@@ -52,8 +52,10 @@ public class AttendanceController {
 		}
 		repository.save(attendance);
 		return "redirect:/";
+		
 	}
 	
+	//更新処理
 	@PostMapping("/edit")
 	public String editAttendance(@Validated @ModelAttribute Attendance attendance,
 			BindingResult result, Model model) {
@@ -68,17 +70,21 @@ public class AttendanceController {
 
 	}
 	
+	//編集画面表示
 	@GetMapping("/edit/{id}")
 	public String editAttendance(@PathVariable Long id, Model model) {
 		model.addAttribute("attendance", repository.findById(id));
-		return "/attendance/edit";
+		return "attendance/edit";
 	}
 	
+	//勤怠データ一件削除
 	@GetMapping("/delete/{id}")
 	public String deleteAttendance(@PathVariable Long id) {
 		repository.deleteById(id);
 		return "redirect:/";
 	}
+	
+	
 	
 	
 

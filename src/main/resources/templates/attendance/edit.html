@@ -26,6 +26,10 @@
 								<form th:action="@{/edit}" th:object="${attendance}" method="post">
 									<input type="hidden" th:field="*{id}" />
 									<div class="mb-3">
+										<label for="workDay">出勤時間</label>
+										<input type="date" th:field=*{workDay}/>									
+									</div>
+									<div class="mb-3">
 										<label for="workStart">出勤時間</label>
 										<input type="time" th:field=*{workStart}/>									
 									</div>

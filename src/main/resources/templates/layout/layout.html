@@ -46,6 +46,12 @@
   						部署登録
   					</a>
   				</li>
+  				<li class="nav-item">		
+  					<a th:href="@{/logout}" class="nav-link text-white">
+  						<i class="bi bi-door-closed me-2"></i>
+  						サインアウト
+  					</a>	
+  				</li>
   			</ul>
   			
   			<hr>
@@ -61,6 +67,7 @@
   	</div>
   	<!-- コンテンツの配置 -->
   	<div layout:fragment="content">
+  
   	</div>
   	
   	<script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
