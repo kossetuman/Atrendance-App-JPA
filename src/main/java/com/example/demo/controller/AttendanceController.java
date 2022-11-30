@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.demo.model.Attendance;
+import com.example.demo.model.Department;
 import com.example.demo.repository.AttendanceRepository;
 import com.example.demo.repository.DepartmentRepository;
 
@@ -32,10 +33,11 @@ public class AttendanceController {
 	//勤怠一覧表示
 	@GetMapping("/")
 	public String showAttendance(@ModelAttribute Attendance attendance,
+			Department departmant,
 			Model model) {
 		model.addAttribute("title", "登録フォーム");
 		model.addAttribute("attendances", repository.findAll());
-		model.addAttribute("departments", departmentRepository.findAll());		
+		model.addAttribute("department", departmentRepository.findAll());		
 		return "index";
 	}
 	

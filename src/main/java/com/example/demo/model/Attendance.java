@@ -35,6 +35,10 @@ public class Attendance {
 	@ManyToOne
 	private Department department;
 	
+	private String actualWorkingHours;
+	
+//	private String siteUser_id;
+	
 	
 	
 	
