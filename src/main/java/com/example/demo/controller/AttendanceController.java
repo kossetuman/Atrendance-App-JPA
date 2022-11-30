@@ -81,7 +81,7 @@ public class AttendanceController {
 	@GetMapping("/delete/{id}")
 	public String deleteAttendance(@PathVariable Long id) {
 		repository.deleteById(id);
-		return "redirect:/";
+		return "redirect:/index";
 	}
 	
 	
